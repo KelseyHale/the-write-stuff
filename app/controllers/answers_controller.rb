@@ -7,7 +7,6 @@ class AnswersController < ApplicationController
     @question = Question.last
     @answer.user = current_user
     @answer.question = @question
-    # binding.pry
 
     if @answer.save
       flash[:notice] = "Question answered"

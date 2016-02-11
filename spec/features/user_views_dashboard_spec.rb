@@ -12,7 +12,6 @@ feature 'user views dashboard', %Q{
     current_question = FactoryGirl.create(:question)
     FactoryGirl.create(:answer, user: user, question: current_question)
     FactoryGirl.create(:answer, user: user2, question: current_question)
-    # binding.pry
 
     visit new_user_session_path
 

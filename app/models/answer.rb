@@ -4,5 +4,6 @@ class Answer < ActiveRecord::Base
 
   validates :answer_content, presence: true
   validates :user, presence: true
+  validates :user, uniqueness: true
   validates :question, presence: true
 end
