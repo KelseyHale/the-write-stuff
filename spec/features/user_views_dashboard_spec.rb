@@ -5,7 +5,7 @@ feature 'user views dashboard', %Q{
   I want to view my dashboard
   So that I can answer my daily question
 } do
-  scenario 'user sees current daily question' do
+  scenario 'user sees current daily question (has not previously answered)' do
     user = FactoryGirl.create(:user)
     user2 = FactoryGirl.create(:user)
     FactoryGirl.create(:question)
@@ -23,10 +23,6 @@ feature 'user views dashboard', %Q{
     expect(page).to have_content('Signed in successfully')
     expect(page).to have_content('Current question:')
     expect(page).to have_content(current_question.question)
-  end
-
-  scenario 'user views dashboard before answering question' do
-
   end
 
   scenario 'user views dashboard after answering question' do
