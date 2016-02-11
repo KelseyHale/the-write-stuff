@@ -13,7 +13,8 @@ class AnswersController < ApplicationController
       flash[:notice] = "Question answered"
       redirect_to answers_path
     else
-      flash[:error] = "error"
+      flash[:error] = @answer.errors.full_messages.join(". ")
+      render "users/index"
     end
   end
 

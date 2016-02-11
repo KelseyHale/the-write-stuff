@@ -21,4 +21,20 @@ feature 'user answers question', %{Q
 
     expect(page).to have_content('Question answered')
   end
+  scenario 'user tries to submit a blank answer' do
+    user = FactoryGirl.create(:user)
+    current_question = FactoryGirl.create(:question)
+
+    visit new_user_session_path
+
+    fill_in 'Email', with: user.email
+    fill_in 'Password', with: user.password
+
+    click_button 'Log in'
+
+    fill_in "answer[answer_content]", with: ""
+    click_button 'Submit Answer'
+
+    expect(page).to have_content("Answer content can't be blank")
+  end
 end
