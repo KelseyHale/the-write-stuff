@@ -7,6 +7,8 @@ feature 'user signs in', %Q{
 } do
   scenario 'specify valid credentials' do
     user = FactoryGirl.create(:user)
+    FactoryGirl.create(:question)
+
 
     visit new_user_session_path
 

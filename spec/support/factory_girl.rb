@@ -7,4 +7,8 @@ FactoryGirl.define do
     password_confirmation 'password'
   end
 
+  factory :question do
+    sequence(:question) { |n| "question content #{n}" }
+  end
+
 end
