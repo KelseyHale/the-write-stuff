@@ -5,10 +5,14 @@ feature 'user views dashboard', %Q{
   I want to view my dashboard
   So that I can answer my daily question
 } do
-  scenario 'view daily question' do
+  scenario 'user sees current daily question' do
     user = FactoryGirl.create(:user)
-    FactoryGirl.create(:question, user: user)
-    current_question = FactoryGirl.create(:question, user: user)
+    user2 = FactoryGirl.create(:user)
+    FactoryGirl.create(:question)
+    current_question = FactoryGirl.create(:question)
+    FactoryGirl.create(:answer, user: user, question: current_question)
+    FactoryGirl.create(:answer, user: user2, question: current_question)
+    # binding.pry
 
     visit new_user_session_path
 
@@ -20,6 +24,13 @@ feature 'user views dashboard', %Q{
     expect(page).to have_content('Signed in successfully')
     expect(page).to have_content('Current question:')
     expect(page).to have_content(current_question.question)
+  end
+
+  scenario 'user views dashboard before answering question' do
+
+  end
+
+  scenario 'user views dashboard after answering question' do
 
   end
 

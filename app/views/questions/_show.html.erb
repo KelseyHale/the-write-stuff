@@ -1,0 +1,12 @@
+<p><%= @current_question %></p>
+
+<%= form_for @answer do |f| %>
+  <div class="field">
+    <%= f.label :answer %><br />
+    <%= f.text_field :answer_content, autofocus: true %>
+  </div>
+
+  <div class="actions">
+    <%= f.submit "Submit Answer" %>
+  </div>
+<% end %>

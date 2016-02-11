@@ -11,4 +11,8 @@ FactoryGirl.define do
     sequence(:question) { |n| "question content #{n}" }
   end
 
+  factory :answer do
+    sequence(:answer_content) { |n| "Answer content #{n}" }
+  end
+
 end
