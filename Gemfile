@@ -53,3 +53,4 @@ gem 'shoulda-matchers', group: [:development, :test], require: false
 gem 'teaspoon-jasmine'
 gem 'devise'
 gem 'materialize-sass'
+gem 'whenever', require: false

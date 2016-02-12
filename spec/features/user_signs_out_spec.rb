@@ -12,6 +12,7 @@ feature 'user signs out', %Q{
 
   scenario 'authenticated user signs out' do
     user = FactoryGirl.create(:user)
+    FactoryGirl.create(:question, current_question: true)
 
     visit new_user_session_path
 
