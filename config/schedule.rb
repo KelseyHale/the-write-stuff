@@ -18,6 +18,8 @@
 # end
 
 # Learn more: http://github.com/javan/whenever
+set :output, "log/cron.log"
+set :environment, 'development'
 
 every 1.day, at: '12:17 am' do
   runner "Question.set_question_of_the_day"
