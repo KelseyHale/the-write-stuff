@@ -7,7 +7,8 @@ feature 'user answers question', %{Q
 } do
   scenario 'user can answer current question' do
     user = FactoryGirl.create(:user)
-    current_question = FactoryGirl.create(:question)
+    FactoryGirl.create(:question)
+    current_question = FactoryGirl.create(:question, current_question: true)
 
     visit new_user_session_path
 
@@ -23,7 +24,7 @@ feature 'user answers question', %{Q
   end
   scenario 'user tries to submit a blank answer' do
     user = FactoryGirl.create(:user)
-    current_question = FactoryGirl.create(:question)
+    current_question = FactoryGirl.create(:question, current_question: true)
 
     visit new_user_session_path
 

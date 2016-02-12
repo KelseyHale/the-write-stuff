@@ -1,6 +1,7 @@
 class UsersController < ApplicationController
   def index
-    @current_question = Question.last.question unless Question.last == nil
+    # binding.pry
+    @current_question = Question.find_by(current_question: true).question
     @answer = Answer.new
   end
 end

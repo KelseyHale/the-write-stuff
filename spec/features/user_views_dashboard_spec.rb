@@ -8,8 +8,7 @@ feature 'user views dashboard', %Q{
   scenario 'user sees current daily question (has not previously answered)' do
     user = FactoryGirl.create(:user)
     user2 = FactoryGirl.create(:user)
-    FactoryGirl.create(:question)
-    current_question = FactoryGirl.create(:question)
+    current_question = FactoryGirl.create(:question, current_question: true)
     FactoryGirl.create(:answer, user: user, question: current_question)
     FactoryGirl.create(:answer, user: user2, question: current_question)
 
