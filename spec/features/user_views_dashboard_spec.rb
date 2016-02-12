@@ -27,8 +27,12 @@ feature 'user views dashboard', %Q{
 
   scenario 'dashboard immediately following answering a question' do
     user = FactoryGirl.create(:user)
-    FactoryGirl.create(:question)
+    user2 = FactoryGirl.create(:user)
+    q = FactoryGirl.create(:question)
     current_question = FactoryGirl.create(:question, current_question: true)
+    answer = FactoryGirl.create(:answer, user: user2, question: current_question)
+    answer2 = FactoryGirl.create(:answer, user: user2, question: q)
+
 
     visit new_user_session_path
 
@@ -42,12 +46,18 @@ feature 'user views dashboard', %Q{
 
     expect(page).to have_content('Question answered')
     expect(page).not_to have_selector("#answer-question")
+    expect(page).to have_selector("#all-answers")
+    expect(page).to have_content(answer.answer_content)
+    expect(page).not_to have_content(answer2.answer_content)
 
   end
   scenario 'user returns to dashboard later after answering a question' do
     user = FactoryGirl.create(:user)
-    FactoryGirl.create(:question)
+    user2 = FactoryGirl.create(:user)
+    q = FactoryGirl.create(:question)
     current_question = FactoryGirl.create(:question, current_question: true)
+    answer = FactoryGirl.create(:answer, user: user2, question: current_question)
+    answer2 = FactoryGirl.create(:answer, user: user2, question: q)
 
     visit new_user_session_path
 
@@ -63,6 +73,10 @@ feature 'user views dashboard', %Q{
 
     # expect(page).to have_selector("#profile-photo")
     expect(page).not_to have_selector("#answer-question")
+    expect(page).to have_selector("#all-answers")
+    expect(page).to have_content(answer.answer_content)
+    expect(page).not_to have_content(answer2.answer_content)
+
   end
 
   # scenario 'specify invalid credentials' do

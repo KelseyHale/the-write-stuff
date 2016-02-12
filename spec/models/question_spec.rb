@@ -34,6 +34,21 @@ RSpec.describe Question, type: :model do
         expect(Question.last.current_question).to be true
         expect(Question.first.fresh).to be false
       end
+      it 'resets all questions if there are no fresh questions to work with' do
+        FactoryGirl.create(:question, current_question: true)
+        FactoryGirl.create(:question, fresh: false)
+        Question.set_question_of_the_day
+        expect(Question.all).to include(Question.find_by(current_question: true))
+        expect(Question.all).to include(Question.find_by(fresh: true))
+      end
+    end
+  end
+  describe '.new_question' do
+    it 'sets a new question' do
+      FactoryGirl.create(:question, current_question: true)
+      FactoryGirl.create(:question)
+
+      expect(Question.new_question).to be_a(String)
     end
   end
 end

@@ -1,6 +1,7 @@
 <h5>Current question:</h5>
 <% if current_user.has_answered_current_question?(@current_question, current_user) %>
   <%= "Thanks for answering today's question" %>
+  <%= render "answers/all_answers" %>
 <% else %>
   <%= render "questions/answer_question" %>
 <% end %>
