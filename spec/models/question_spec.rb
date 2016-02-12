@@ -18,7 +18,6 @@ RSpec.describe Question, type: :model do
         5.times do
           array << Question.set_question_of_the_day
         end
-        binding.pry
         expect(array.uniq.count).to eq(5)
       end
       it 'changes the current question to not the current question' do
