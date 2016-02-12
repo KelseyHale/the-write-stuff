@@ -9,6 +9,7 @@ feature 'user answers question', %{Q
     user = FactoryGirl.create(:user)
     FactoryGirl.create(:question)
     current_question = FactoryGirl.create(:question, current_question: true)
+    FactoryGirl.create(:question)
 
     visit new_user_session_path
 
@@ -21,6 +22,9 @@ feature 'user answers question', %{Q
     click_button 'Submit Answer'
 
     expect(page).to have_content('Question answered')
+    expect(page).not_to have_selector("#answer-question")
+    expect(current_question.answers).to include(Answer.find_by(answer_content: "This is the answer to your questionnnnn"))
+
   end
   scenario 'user tries to submit a blank answer' do
     user = FactoryGirl.create(:user)
@@ -35,7 +39,6 @@ feature 'user answers question', %{Q
 
     fill_in "answer[answer_content]", with: ""
     click_button 'Submit Answer'
-
     expect(page).to have_content("Answer content can't be blank")
   end
 end

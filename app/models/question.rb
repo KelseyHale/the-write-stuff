@@ -5,7 +5,7 @@ class Question < ActiveRecord::Base
 
   def self.set_question_of_the_day
     self.where(current_question: true).update_all(current_question: false, fresh: false)
-    new_question = self.where(fresh: true).order("RANDOM()").first
+    new_question = self.where(fresh: true).first
     new_question.update!(current_question: true)
     new_question.question
   end

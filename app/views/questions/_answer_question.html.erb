@@ -1,7 +1,7 @@
-<p><%= @current_question %></p>
+<p><%= @current_question.question %></p>
 
 <%= form_for @answer do |f| %>
-  <div class="field">
+  <div id="answer-question" class="field">
     <%= f.label :answer %><br />
     <%= f.text_field :answer_content, autofocus: true %>
   </div>

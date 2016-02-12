@@ -4,7 +4,7 @@ class AnswersController < ApplicationController
 
   def create
     @answer = Answer.new(answer_params)
-    @question = Question.last
+    @question = Question.find_by(current_question: true)
     @answer.user = current_user
     @answer.question = @question
 
@@ -13,6 +13,7 @@ class AnswersController < ApplicationController
       redirect_to answers_path
     else
       flash[:error] = @answer.errors.full_messages.join(". ")
+      @current_question = Question.find_by(current_question: true)
       render "users/index"
     end
   end

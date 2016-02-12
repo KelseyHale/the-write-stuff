@@ -9,7 +9,6 @@ feature 'user views dashboard', %Q{
     user = FactoryGirl.create(:user)
     user2 = FactoryGirl.create(:user)
     current_question = FactoryGirl.create(:question, current_question: true)
-    FactoryGirl.create(:answer, user: user, question: current_question)
     FactoryGirl.create(:answer, user: user2, question: current_question)
 
     visit new_user_session_path
@@ -22,10 +21,48 @@ feature 'user views dashboard', %Q{
     expect(page).to have_content('Signed in successfully')
     expect(page).to have_content('Current question:')
     expect(page).to have_content(current_question.question)
+    expect(page).to have_selector("#answer-question")
+
   end
 
-  scenario 'user views dashboard after answering question' do
+  scenario 'dashboard immediately following answering a question' do
+    user = FactoryGirl.create(:user)
+    FactoryGirl.create(:question)
+    current_question = FactoryGirl.create(:question, current_question: true)
 
+    visit new_user_session_path
+
+    fill_in 'Email', with: user.email
+    fill_in 'Password', with: user.password
+
+    click_button 'Log in'
+
+    fill_in "answer[answer_content]", with: "This is the answer to your questionnnnn"
+    click_button 'Submit Answer'
+
+    expect(page).to have_content('Question answered')
+    expect(page).not_to have_selector("#answer-question")
+
+  end
+  scenario 'user returns to dashboard later after answering a question' do
+    user = FactoryGirl.create(:user)
+    FactoryGirl.create(:question)
+    current_question = FactoryGirl.create(:question, current_question: true)
+
+    visit new_user_session_path
+
+    fill_in 'Email', with: user.email
+    fill_in 'Password', with: user.password
+
+    click_button 'Log in'
+
+    fill_in "answer[answer_content]", with: "This is the answer to your questionnnnn"
+    click_button 'Submit Answer'
+
+    visit "/"
+
+    # expect(page).to have_selector("#profile-photo")
+    expect(page).not_to have_selector("#answer-question")
   end
 
   # scenario 'specify invalid credentials' do
