@@ -29,8 +29,9 @@
         <%= value %>
       </div>
     <%- end -%>
-
-    <%= yield %>
+    <div class="container">
+      <%= yield %>
+    </div>
 
     <%= javascript_include_tag 'application' %>
     <%= yield :extra_footer %>
