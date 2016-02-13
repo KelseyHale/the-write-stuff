@@ -1,5 +1,7 @@
 class AnswersController < ApplicationController
   def index
+    @current_question = Question.find_by(current_question: true)
+    @answers = Answer.where(question: @current_question)
   end
 
   def create
