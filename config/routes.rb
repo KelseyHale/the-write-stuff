@@ -6,7 +6,7 @@ Rails.application.routes.draw do
   root 'homes#index'
 
   resources :answers, only: [:index, :new, :create]
-  resources :questions, only: [:index]
+  resources :questions, only: [:index, :show]
 
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".

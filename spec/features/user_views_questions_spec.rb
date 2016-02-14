@@ -1,10 +1,11 @@
 require 'rails_helper'
 
 # Acceptance criteria
-# [ ] I do not need to be logged in
-# [ ] I must be on the questions index page
-# [ ] I can see a list of all questions
+# [X] I do not need to be logged in
+# [X] I must be on the questions index page
+# [X] I can see a list of all questions
 # [ ] I can see a how many people have answered each question
+# [X] I can visit the show page by clicking a link to the question
 
 
 feature 'user views questions index page', %Q{
@@ -21,5 +22,16 @@ feature 'user views questions index page', %Q{
 
     expect(page).to have_content(Question.first.question)
     expect(page).to have_content(Question.last.question)
+  end
+  scenario 'user clicks link to questions show page' do
+    user = FactoryGirl.create(:user)
+    question = FactoryGirl.create(:question)
+    answer = FactoryGirl.create(:answer, question: question, user: user)
+
+    visit questions_path
+    click_link question.question
+
+    expect(page).to have_content(question.question)
+    expect(page).to have_content(answer.answer_content)
   end
 end

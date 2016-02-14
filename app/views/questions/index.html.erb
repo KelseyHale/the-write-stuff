@@ -1,5 +1,5 @@
 <ul>
   <% @questions.each do |question| %>
-    <li><%= question.question %></li>
+    <li><%= link_to question.question, question_path(question) %></li>
   <% end %>
 </ul>
