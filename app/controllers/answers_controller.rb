@@ -1,4 +1,6 @@
 class AnswersController < ApplicationController
+  before_action :authenticate_user!, except: [:index]
+  
   def index
     @current_question = Question.find_by(current_question: true)
     @answers = Answer.where(question: @current_question)

@@ -1,6 +1,12 @@
 <h3><%= @question.question %></h3>
-<ul>
-  <% @answers.each do |answer| %>
-    <li><%= answer.answer_content %></li>
-  <% end %>
-</ul>
+
+
+<% if current_user != nil && current_user.has_answered_current_question?(@question, current_user) %>
+  <ul>
+    <% @answers.each do |answer| %>
+      <li><%= answer.answer_content %></li>
+    <% end %>
+  </ul>
+<% else %>
+  <%= render "questions/answer_question" %>
+<% end %>

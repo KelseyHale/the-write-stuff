@@ -25,8 +25,18 @@ feature 'user views questions index page', %Q{
   end
   scenario 'user clicks link to questions show page' do
     user = FactoryGirl.create(:user)
-    question = FactoryGirl.create(:question)
-    answer = FactoryGirl.create(:answer, question: question, user: user)
+    user2 = FactoryGirl.create(:user)
+    question = FactoryGirl.create(:question, current_question: true)
+    FactoryGirl.create(:question)
+    answer = FactoryGirl.create(:answer, user: user, question: question)
+    FactoryGirl.create(:answer, user: user2, question: question)
+
+    visit new_user_session_path
+
+    fill_in 'Email', with: user.email
+    fill_in 'Password', with: user.password
+
+    click_button 'Log in'
 
     visit questions_path
     click_link question.question
