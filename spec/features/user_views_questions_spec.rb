@@ -26,7 +26,7 @@ feature 'user views questions index page', %Q{
   scenario 'user clicks link to questions show page' do
     user = FactoryGirl.create(:user)
     user2 = FactoryGirl.create(:user)
-    question = FactoryGirl.create(:question, current_question: true)
+    question = FactoryGirl.create(:question)
     FactoryGirl.create(:question)
     answer = FactoryGirl.create(:answer, user: user, question: question)
     FactoryGirl.create(:answer, user: user2, question: question)

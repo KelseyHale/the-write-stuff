@@ -23,7 +23,7 @@ So that I can see everyone else's responses" do
   and is brought to the question show page' do
     user = FactoryGirl.create(:user)
     user2 = FactoryGirl.create(:user)
-    question = FactoryGirl.create(:question, current_question: true)
+    question = FactoryGirl.create(:question)
     FactoryGirl.create(:question)
     FactoryGirl.create(:answer, user: user, question: question)
     FactoryGirl.create(:answer, user: user2, question: question)
@@ -42,7 +42,7 @@ So that I can see everyone else's responses" do
   scenario 'User that has not answered the question clicks on the question' do
     user = FactoryGirl.create(:user)
     user2 = FactoryGirl.create(:user)
-    question = FactoryGirl.create(:question, current_question: true)
+    question = FactoryGirl.create(:question)
     FactoryGirl.create(:question)
     FactoryGirl.create(:answer, user: user2, question: question)
 

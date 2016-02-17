@@ -8,7 +8,7 @@ feature 'user views dashboard', %Q{
   scenario 'user sees current daily question (has not previously answered)' do
     user = FactoryGirl.create(:user)
     user2 = FactoryGirl.create(:user)
-    current_question = FactoryGirl.create(:question, current_question: true)
+    current_question = FactoryGirl.create(:question)
     FactoryGirl.create(:answer, user: user2, question: current_question)
 
     visit new_user_session_path
@@ -20,7 +20,7 @@ feature 'user views dashboard', %Q{
 
     expect(page).to have_content('Signed in successfully')
     expect(page).to have_content('Current question:')
-    # expect(page).to have_content(current_question.question)
+    expect(page).to have_content(current_question.question)
     expect(page).to have_selector("#answer-question")
 
   end
@@ -28,10 +28,8 @@ feature 'user views dashboard', %Q{
   scenario 'dashboard immediately following answering a question' do
     user = FactoryGirl.create(:user)
     user2 = FactoryGirl.create(:user)
-    q = FactoryGirl.create(:question)
-    current_question = FactoryGirl.create(:question, current_question: true)
+    current_question = FactoryGirl.create(:question)
     answer = FactoryGirl.create(:answer, user: user2, question: current_question)
-    answer2 = FactoryGirl.create(:answer, user: user2, question: q)
 
 
     visit new_user_session_path
@@ -48,42 +46,6 @@ feature 'user views dashboard', %Q{
     expect(page).not_to have_selector("#answer-question")
     expect(page).to have_selector("#all-answers")
     expect(page).to have_content(answer.answer_content)
-    expect(page).not_to have_content(answer2.answer_content)
 
   end
-  scenario 'user returns to dashboard later after answering a question' do
-    user = FactoryGirl.create(:user)
-    user2 = FactoryGirl.create(:user)
-    q = FactoryGirl.create(:question)
-    current_question = FactoryGirl.create(:question, current_question: true)
-    answer = FactoryGirl.create(:answer, user: user2, question: current_question)
-    answer2 = FactoryGirl.create(:answer, user: user2, question: q)
-
-    visit new_user_session_path
-
-    fill_in 'Email', with: user.email
-    fill_in 'Password', with: user.password
-
-    click_button 'Log in'
-
-    fill_in "answer[answer_content]", with: "This is the answer to your questionnnnn"
-    click_button 'Submit Answer'
-
-    visit "/"
-
-    # expect(page).to have_selector("#profile-photo")
-    expect(page).not_to have_selector("#answer-question")
-    expect(page).to have_selector("#all-answers")
-    expect(page).to have_content(answer.answer_content)
-    expect(page).not_to have_content(answer2.answer_content)
-
-  end
-
-  # scenario 'specify invalid credentials' do
-  #   visit new_user_session_path
-  #
-  #   click_button 'Log in'
-  #   expect(page).to have_content('Invalid email or password')
-  #   expect(page).to_not have_content('Sign Out')
-  # end
 end

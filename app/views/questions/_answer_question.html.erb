@@ -1,5 +1,5 @@
-
-<%= form_for @answer do |f| %>
+<h3><%= @question.question %></h3>
+<%= form_for [@question, @answer] do |f| %>
   <div id="answer-question" class="field">
     <%= f.label :answer %><br />
     <%= f.text_field :answer_content, autofocus: true %>

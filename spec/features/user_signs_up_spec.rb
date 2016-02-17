@@ -13,7 +13,7 @@ feature 'user registers', %Q{
   #   an error message
 
   scenario 'provide valid registration information' do
-    FactoryGirl.create(:question, current_question: true)
+    FactoryGirl.create(:question)
     visit new_user_registration_path
 
     fill_in 'Email', with: 'john@example.com'

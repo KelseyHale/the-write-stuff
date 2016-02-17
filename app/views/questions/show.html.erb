@@ -2,7 +2,7 @@
 
 
 <% if current_user != nil && current_user.has_answered_current_question?(@question, current_user) %>
-  <ul>
+  <ul id="all-answers">
     <% @answers.each do |answer| %>
       <li><%= answer.answer_content %></li>
     <% end %>
