@@ -29,6 +29,7 @@ feature 'user views dashboard', %Q{
     user = FactoryGirl.create(:user)
     user2 = FactoryGirl.create(:user)
     current_question = FactoryGirl.create(:question)
+    next_question = FactoryGirl.create(:question)
     answer = FactoryGirl.create(:answer, user: user2, question: current_question)
 
 
@@ -42,10 +43,13 @@ feature 'user views dashboard', %Q{
     fill_in "answer[answer_content]", with: "This is the answer to your questionnnnn"
     click_button 'Submit Answer'
 
-    expect(page).to have_content('Question answered')
-    expect(page).not_to have_selector("#answer-question")
-    expect(page).to have_selector("#all-answers")
-    expect(page).to have_content(answer.answer_content)
+    visit "/"
+
+    expect(page).not_to have_content('Question answered')
+    expect(page).to have_selector("#answer-question")
+    expect(page).not_to have_selector("#all-answers")
+    expect(page).not_to have_content(answer.answer_content)
+    expect(page).to have_content(next_question.question)
 
   end
 end

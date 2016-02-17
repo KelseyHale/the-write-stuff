@@ -38,7 +38,7 @@ feature 'user views questions index page', %Q{
 
     click_button 'Log in'
 
-    visit questions_path
+    click_link "All Questions"
     click_link question.question
 
     expect(page).to have_content(question.question)
