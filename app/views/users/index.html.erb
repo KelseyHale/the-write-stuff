@@ -11,7 +11,7 @@
 <% if current_user.answers != [] %>
   <%= "Previously answered questions:" %>
   <ul>
-    <% @questions.each do |question| %>
+    <% @previous_answered_questions.each do |question| %>
       <li><%= link_to question.question, question_path(question) %></li>
     <% end %>
   </ul>
