@@ -6,4 +6,13 @@
   <%= render "questions/answer_question" %>
 <% end %>
 
-<%= link_to "All Questions", questions_path %>
+<%= link_to "All Questions", questions_path %><br>
+
+<% if current_user.answers != [] %>
+  <%= "Previously answered questions:" %>
+  <ul>
+    <% @questions.each do |question| %>
+      <li><%= link_to question.question, question_path(question) %></li>
+    <% end %>
+  </ul>
+<% end %>

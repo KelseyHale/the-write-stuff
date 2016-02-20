@@ -50,6 +50,25 @@ feature 'user views dashboard', %Q{
     expect(page).not_to have_selector("#all-answers")
     expect(page).not_to have_content(answer.answer_content)
     expect(page).to have_content(next_question.question)
+  end
+
+  scenario 'user sees list of questions wtih links they have already answered' do
+    user = FactoryGirl.create(:user)
+    previous_question = FactoryGirl.create(:question)
+    current_question = FactoryGirl.create(:question)
+    FactoryGirl.create(:answer, user: user, question: previous_question)
+
+    visit new_user_session_path
+
+    fill_in 'Email', with: user.email
+    fill_in 'Password', with: user.password
+
+    click_button 'Log in'
+
+    click_link previous_question.question
+
+    expect(page).to have_content(previous_question.question)
+    expect(page).to have_selector('#all-answers')
 
   end
 end
