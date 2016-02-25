@@ -1,5 +1,21 @@
 <ul>
-  <% @questions.each do |question| %>
-    <li><%= link_to question.question, question_path(question) %></li>
-  <% end %>
+  <div class="question-list">
+    <% @questions.each do |question| %>
+      <li class="card">
+        <div class="card-content">
+          <span class="card-title"><%= link_to question.question, question_path(question) %></span>
+          <% if question.answers != [] %>
+            <% preview = question.answers.limit(3) %>
+            <% preview.each do |answer| %>
+              <p><%= answer.answer_content %></p>
+            <% end %>
+          <% end %>
+        </div>
+        <div class="card-action">
+          <a href=#><%= question.answers.count %> answers</a>
+          <a href=#>0 upvotes</a>
+        </div>
+      </li>
+    <% end %>
+  </div>
 </ul>

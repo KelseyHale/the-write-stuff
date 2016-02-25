@@ -15,9 +15,14 @@
 
  */
 
+$newblue: #0d1e2e;
+$green: #0e281f;
+
 @import "materialize/components/color";
-$primary-color: color("green", "darken-2") !default;
+$primary-color: color("grey", "darken-4") !default;
 @import "materialize";
+
+
 
 body {
   display: flex;
@@ -27,4 +32,8 @@ body {
 
 main {
   flex: 1 0 auto;
+}
+
+li.row {
+  height: 70px;
 }
